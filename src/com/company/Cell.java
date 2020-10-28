@@ -1,31 +1,37 @@
 package com.company;
 
-public class Cell {
+public class Cell
+{
     public int x, y;
     public Ship ship = null;
     public boolean wasShot = false;
 
     private Board board;
 
-    public Cell(int x, int y, Board board){
+    public Cell(int x, int y, Board board)
+    {
         this.x = x;
         this.y = y;
         this.board = board;
     }
 
-    public boolean shoot(){
+    public boolean shoot()
+    {
         wasShot = true;
 
-        if (ship != null){
+        if (ship != null)
+        {
             ship.hit();
-            if(!ship.isAlive()){
+            if(!ship.isAlive())
+            {
                 board.ships--;
             }
             return true;
-        } else {
+        }
 
+        else
+        {
             return false;
-
         }
     }
 }

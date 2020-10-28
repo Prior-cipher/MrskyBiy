@@ -5,7 +5,8 @@ public class Ship {
     public boolean vertical = true;
     public int health;
 
-    public Ship(int type, boolean vertical){
+    public Ship(int type, boolean vertical)
+    {
         this.type = type;
         this.vertical = vertical;
         health = type;

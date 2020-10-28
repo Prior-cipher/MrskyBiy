@@ -1,6 +1,7 @@
 package com.company;
 
-public class Board {
+public class Board
+{
     private boolean enemy = false;
 
     /*кораблей пока 5, у каждого свой размер, чтобы можно было быстро сделать
@@ -9,9 +10,18 @@ public class Board {
     public boolean playerWon;
     Cell[][] grid;
 
-    public Board(boolean enemy){
+    public Board(boolean enemy)
+    {
         this.enemy = enemy;
         this.grid = new Cell[10][10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                this.grid[i][j]= new Cell(i,j,this);
+            }
+        }
     }
 
     public boolean placeShip(Ship ship, int x, int y) {
