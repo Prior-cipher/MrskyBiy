@@ -25,7 +25,7 @@ public class Main {
             if(cell.wasShot)
                 continue;
 
-            enemyTurn = !cell.shoot();
+            enemyTurn = cell.shoot();
 
             if(playerBoard.ships == 0){
                 playerBoard.playerWon = false;
