@@ -1,6 +1,5 @@
 package com.company;
 
-
 public class Board {
     private boolean enemy = false;
 
@@ -14,6 +13,7 @@ public class Board {
         this.enemy = enemy;
         this.grid = new Cell[10][10];
     }
+
     public boolean placeShip(Ship ship, int x, int y) {
         //canPlaceShip, getCall
 
@@ -34,8 +34,10 @@ public class Board {
         }
         return false;
     }
+
+
     public Cell getCell(int x, int y){
-            return grid[x][y];
+        return grid[x][y];
     }
 
 
@@ -64,7 +66,8 @@ public class Board {
         return true;
     }
 
-    private boolean isPointValid(int x, int y){
+
+    public boolean isPointValid(int x, int y){
         return x >= 0 && x < 10 && y >= 0 && y < 10;
     }
 

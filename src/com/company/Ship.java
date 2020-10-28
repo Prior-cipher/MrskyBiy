@@ -3,7 +3,7 @@ package com.company;
 public class Ship {
     public int type;
     public boolean vertical = true;
-    private int health;
+    public int health;
 
     public Ship(int type, boolean vertical){
         this.type = type;
