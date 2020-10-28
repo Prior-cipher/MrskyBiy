@@ -109,7 +109,7 @@ public class Main {
         while(enemyTurn){
 
             if(cell == null){
-                cell = enemyFirstShot( x, y);
+                cell = enemyFirstShot(x, y);
             } else {
                 if(cell.ship.isAlive()) {
                     if (cell.ship.health == cell.ship.type - 1) {
