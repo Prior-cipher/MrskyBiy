@@ -19,7 +19,7 @@ public class Board
         {
             for (int j = 0; j < 10; j++)
             {
-                this.grid[i][j]= new Cell(i,j,this);
+                this.grid[i][j]= new Cell(j,i,this);
             }
         }
     }
@@ -29,7 +29,7 @@ public class Board
 
         if (canPlaceShip(ship, x, y)) {
             int length = ship.type;
-            if (ship.vertical) {
+            if (!ship.vertical) {
                 for (int i = y; i < y + length; i++) {
                     Cell cell = getCell(x, i);
                     cell.ship = ship;
@@ -54,7 +54,7 @@ public class Board
     private boolean canPlaceShip(Ship ship, int x, int y){
         //getCell, getNeighbors
         int length = ship.type;
-        if (ship.vertical) {
+        if (!ship.vertical) {
             for (int i = y; i < y + length; i++) {
                 if (!isPointValid(x, i))
                     return false;

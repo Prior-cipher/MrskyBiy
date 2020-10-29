@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.*;
 
-public class AAAAAAIIIII
+public class AI
 {
     /*начальная ремарка прочитай пожалуйста
     как работает ии.
@@ -39,14 +39,14 @@ public class AAAAAAIIIII
     private Cell enemyFirstShot(int x, int y,Board board)
     {
         Cell cell;
-        do{
+
             x = random.nextInt(10);
             y = random.nextInt(10);
 
             cell = board.getCell(x, y);
 
-        }
-        while(!cell.wasShot);
+
+
 
 
         return cell;
@@ -58,9 +58,6 @@ public class AAAAAAIIIII
     public Cell startThink(Board board)
     {
         Cell target;
-
-
-
 
         if (keepFinding==false)
         {
@@ -93,7 +90,7 @@ public class AAAAAAIIIII
        checkADd(target);
 
 
-        return new Cell(1,1,new Board(false));
+        return target;
     }
 
 
@@ -105,35 +102,37 @@ public class AAAAAAIIIII
         //выбирает случайную точку вокруг первого попадания
         ArrayList<Cell> cellsToShoot = new ArrayList<Cell>();
         Cell cellToShoot;
-        if(board.isPointValid(target.x + 1, target.y) && !target.wasShot)
+        if(board.isPointValid(target.x + 1, target.y) && !(board.grid[target.y][target.x+1].wasShot))
         {
-            cellsToShoot.add(board.grid[target.x+1][target.y]);
+            cellsToShoot.add(board.grid[target.y][target.x+1]);
 
         }
-        if(board.isPointValid(target.x-1 , target.y) && !target.wasShot)
+        if(board.isPointValid(target.x-1 , target.y) && !(board.grid[target.y][target.x-1].wasShot))
         {
-            cellsToShoot.add(board.grid[target.x-1][target.y]);
+            cellsToShoot.add(board.grid[target.y][target.x-1]);
 
         }
-        if(board.isPointValid(target.x , target.y+1) && !target.wasShot){
-            cellsToShoot.add(board.grid[target.x][target.y+1]);
+        if(board.isPointValid(target.x , target.y+1) && !(board.grid[target.y+1][target.x].wasShot))
+        {
+            cellsToShoot.add(board.grid[target.y+1][target.x]);
 
         }
-        if(board.isPointValid(target.x , target.y-1) && !target.wasShot){
-            cellsToShoot.add(board.grid[target.x][target.y-1]);
+        if(board.isPointValid(target.x , target.y-1) && !(board.grid[target.y-1][target.x].wasShot))
+        {
+            cellsToShoot.add(board.grid[target.y-1][target.x]);
 
         }
 
         cellToShoot = cellsToShoot.get(rand.nextInt(cellsToShoot.size()));
 
-        checkADd(cellToShoot);
+
         return cellToShoot;
     }
 
     private void checkHorizotal()
     {
         //проверяет горизонтальность корабля
-        if(cellsWithShip.get(0).x==cellsWithShip.get(1).x)
+        if(cellsWithShip.get(0).y==cellsWithShip.get(1).y)
         {
             horizon=true;
         }
@@ -153,9 +152,11 @@ public class AAAAAAIIIII
         int diff=0;
         Cell target;
 
+        int sx=cellsWithShip.get(0).x;
+        int sxy=cellsWithShip.get(0).y;
 
 
-        if (horizon==true)
+        if (horizon)
         {
             a=1;
         }
@@ -163,6 +164,8 @@ public class AAAAAAIIIII
         else
         {
             b=1;
+
+
         }
 
 
@@ -177,25 +180,26 @@ public class AAAAAAIIIII
 //проверка нужнаяя ли нам пустая точка с потенциальым кораблем  в одном из напрмавелний
         if(board.isPointValid(cellsWithShip.get(0).x+diff*napravleniy*a,cellsWithShip.get(0).y+diff*napravleniy*b)
 
-                && board.grid[cellsWithShip.get(0).x+diff*napravleniy*a][cellsWithShip.get(0).y+diff*napravleniy*b].wasShot==false)
+                && board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].wasShot==false)
         {
-            target=board.grid[cellsWithShip.get(0).x+diff*napravleniy*a][cellsWithShip.get(0).y+diff*napravleniy*b];
+            target=board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a];
         }
 
         else
             {//если нет то начинаем идти в другу сторону
                 napravleniy*=-1;
-                diff=1;
+                diff=0;
 
                 diff = getDiff(board, a, b, napravleniy, diff);
                 target=board.grid[cellsWithShip.get(0).x+diff*napravleniy*a][cellsWithShip.get(0).y+diff*napravleniy*b];
             }
 
 
-
-
+        System.out.println(a+" "+b+" "+ diff);
+        System.out.println(target.x+" "+ target.y);
         return target;
     }
+
 
 
 
@@ -205,9 +209,16 @@ public class AAAAAAIIIII
         // если нашел что там удже (в той стороне есть выстрел ) завершает работу
         while (board.isPointValid(cellsWithShip.get(0).x+diff*napravleniy*a,cellsWithShip.get(0).y+diff*napravleniy*b)
 
-                && board.grid[cellsWithShip.get(0).x+diff*napravleniy*a][cellsWithShip.get(0).y+diff*napravleniy*b].wasShot==true)
+                && board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].wasShot==true
+                &&board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].ship!=null )
 
         {
+            Cell sh=board.getCell(cellsWithShip.get(0).y+diff*napravleniy*b,cellsWithShip.get(0).x+diff*napravleniy*a);
+            int ex1= board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].x;
+            int ex2=board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].y;
+            System.out.println("x- "+ex1+" y= "+ex2 );
+            System.out.println(board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].wasShot);
+            System.out.println(board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].ship);
             diff+=1;
         }
         return diff;
