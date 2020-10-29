@@ -5,37 +5,48 @@ import java.util.*;
 public class Main {
 
     private boolean running = false;
-    private Board enemyBoard, playerBoard;
+    Board enemyBoard = new Board(true);
+    Board playerBoard = new Board(false);
 
-    private int shipsToPlace = 5;
+    private int shipsToPlace = 10;
 
     private boolean enemyTurn = false;
 
     private Random random = new Random();
 
-    private void createContent(){
-
+    public void createContent(){
+        showGrid(enemyBoard);
+        showGrid(playerBoard);
+        if(enemyTurn){
+            enemyMove();
+        }
     }
 
     private void fillBoard(Board order, boolean isBegun){
-        int type = 5;
+        int type = 4;
 
-        while(type > 0){
+        while(order.ships > 0){
             int x = random.nextInt(10);
             int y = random.nextInt(10);
 
             if (order.placeShip(new Ship(type, Math.random()<0.5),
                     x, y)){
-                type--;
+
+                order.ships--;
+                if(order.ships == 9 || order.ships == 7 || order.ships == 4){
+                    --type;
+                }
             }
         }
         running = isBegun;
     }
 
 
-    private void startGame(){
+    public void startGame(){
         fillBoard(playerBoard, false);
         fillBoard(enemyBoard, true);
+        showGrid(enemyBoard);
+        showGrid(playerBoard);
     }
 
 
@@ -133,8 +144,39 @@ public class Main {
 
 
     public static void main(String[] args) {
+        Main m1= new Main();
+
+        m1.createContent();
+        m1.startGame();
+    }
+    public void showGrid(Board a)
+    {
+
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+
+                if (a.grid[i][j].ship==null)
+                {
+                    System.out.print('.');
+                }
+                else if(a.grid[i][j].wasShot==true)
+                {
+                    System.out.print('1');
+                }
+                else
+                {
+                    System.out.print('*');
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("----------------------------------------------------------");
 
     }
+
+
 
 
 }
