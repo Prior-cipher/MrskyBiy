@@ -142,11 +142,6 @@ public class AAAAAAIIIII
 
     }
 
-    private void setKray()
-    {
-
-    }
-
 
 
 
@@ -179,7 +174,7 @@ public class AAAAAAIIIII
 
         diff = getDiff(board, a, b, napravleniy, diff);
 
-//проверка нужнаяя ли нам пустая точка с потенциальым кораблем
+//проверка нужнаяя ли нам пустая точка с потенциальым кораблем  в одном из напрмавелний
         if(board.isPointValid(cellsWithShip.get(0).x+diff*napravleniy*a,cellsWithShip.get(0).y+diff*napravleniy*b)
 
                 && board.grid[cellsWithShip.get(0).x+diff*napravleniy*a][cellsWithShip.get(0).y+diff*napravleniy*b].wasShot==false)
@@ -188,7 +183,7 @@ public class AAAAAAIIIII
         }
 
         else
-            {
+            {//если нет то начинаем идти в другу сторону
                 napravleniy*=-1;
                 diff=1;
 
@@ -201,6 +196,8 @@ public class AAAAAAIIIII
 
         return target;
     }
+
+
 
     private int getDiff(Board board, int a, int b, int napravleniy, int diff)
     {
