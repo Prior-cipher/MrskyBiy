@@ -1,7 +1,11 @@
 package com.company;
 
-public class Board
-{
+
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+
+public class Board {
     private boolean enemy = false;
 
     /*кораблей пока 5, у каждого свой размер, чтобы можно было быстро сделать
@@ -10,34 +14,56 @@ public class Board
     public boolean playerWon;
     Cell[][] grid;
 
-    public Board(boolean enemy)
-    {
+    public Board(boolean enemy){
         this.enemy = enemy;
         this.grid = new Cell[10][10];
-
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < 10; j++)
-            {
-                this.grid[i][j]= new Cell(j,i,this);
+        for (int i = 0; i < this.grid.length; i++) {
+            for (int j = 0; j < this.grid[i].length; j++) {
+                this.grid[i][j] = new Cell(i, j, this);
             }
         }
+
     }
+    private Cell[] getNeighbors(int x, int y){
+        Point[] points = new Point[] {
+                new Point(x - 1, y),
+                new Point(x + 1, y),
+                new Point(x, y - 1),
+                new Point(x, y + 1),
+                new Point(x + 1, y + 1),
+                new Point(x + 1, y - 1),
+                new Point(x - 1, y + 1),
+                new Point(x - 1, y - 1)
+        };
+        List<Cell> neighbors = new ArrayList<Cell>();
+
+        for (Point p : points) {
+            if (isPointValid((int) p.getX(), (int)p.getY())) {
+                neighbors.add(getCell((int)p.getX(), (int)p.getY()));
+            }
+        }
+        return neighbors.toArray(new Cell[0]);
+    }
+
+
+
 
     public boolean placeShip(Ship ship, int x, int y) {
         //canPlaceShip, getCall
 
         if (canPlaceShip(ship, x, y)) {
             int length = ship.type;
-            if (!ship.vertical) {
+            if (ship.vertical) {
                 for (int i = y; i < y + length; i++) {
                     Cell cell = getCell(x, i);
                     cell.ship = ship;
+
                 }
             } else {
                 for (int i = x; i < x + length; i++) {
                     Cell cell = getCell(i, y);
                     cell.ship = ship;
+
                 }
             }
             return true;
@@ -54,7 +80,7 @@ public class Board
     private boolean canPlaceShip(Ship ship, int x, int y){
         //getCell, getNeighbors
         int length = ship.type;
-        if (!ship.vertical) {
+        if (ship.vertical) {
             for (int i = y; i < y + length; i++) {
                 if (!isPointValid(x, i))
                     return false;
@@ -62,6 +88,14 @@ public class Board
                 Cell cell = getCell(x, i);
                 if (cell.ship != null)
                     return false;
+
+                for (Cell neighbor : getNeighbors(x, i)) {
+                    if (!isPointValid(x, i))
+                        return false;
+
+                    if (neighbor.ship != null)
+                        return false;
+                }
             }
         } else {
             for (int i = x; i < x + length; i++) {
@@ -71,6 +105,14 @@ public class Board
                 Cell cell = getCell(i, y);
                 if (cell.ship != null)
                     return false;
+                for (Cell neighbor : getNeighbors(i, y)) {
+                    if (!isPointValid(i, y))
+                        return false;
+
+                    if (neighbor.ship != null)
+                        return false;
+                }
+
             }
         }
         return true;
