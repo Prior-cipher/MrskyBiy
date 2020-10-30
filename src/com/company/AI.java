@@ -40,10 +40,14 @@ public class AI
     {
         Cell cell;
 
-            x = random.nextInt(10);
-            y = random.nextInt(10);
+          do {
+              x = random.nextInt(10);
+              y = random.nextInt(10);
 
-            cell = board.getCell(x, y);
+              cell = board.getCell(x, y);
+          }
+          while ( cell.wasShot!=false);
+
 
 
 
@@ -57,6 +61,9 @@ public class AI
 
     public Cell startThink(Board board)
     {
+
+        killConfermded(board);
+
         Cell target;
 
         if (keepFinding==false)
@@ -93,7 +100,27 @@ public class AI
         return target;
     }
 
+    
 
+    private void killConfermded(Board board)
+    {
+        if(cellsWithShip.size()>0 && cellsWithShip.get(0).ship.health==0)
+        {
+            for (Cell cell:cellsWithShip)
+            {
+                for (Cell cell1:board.getNeighbors(cell.y,cell.x))
+                {
+                    cell1.shoot();
+                }
+            }
+
+
+            setToZero();
+        }
+
+    }
+
+    
 
     private Cell check(Cell target,Board board)
     {

@@ -22,22 +22,23 @@ public class Main
     Scanner in= new Scanner(System.in);
 
 
-    private void fillBoard(Board order, boolean isBegun)
-    {
-        int type = 5;
+    private void fillBoard(Board order, boolean isBegun){
+        int type = 4;
 
-        while(type > 0){
+        while(order.ships > 0){
             int x = random.nextInt(10);
             int y = random.nextInt(10);
 
             if (order.placeShip(new Ship(type, Math.random()<0.5),
                     x, y)){
-                type--;
+
+                order.ships--;
+                if(order.ships == 9 || order.ships == 7 || order.ships == 4){
+                    --type;
+                }
             }
         }
         running = isBegun;
-
-        showGrid(order);
     }
 
 
