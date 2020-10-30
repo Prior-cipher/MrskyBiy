@@ -45,11 +45,6 @@ public class AI
         }
         while ( cell.wasShot!=false);
 
-
-
-
-
-
         return cell;
 
 
@@ -73,8 +68,6 @@ public class AI
         //иначе запускаем модули с мозгами
         else
         {
-
-
             if (cellsWithShip.size()==1)
             {
                 target=check(cellsWithShip.get(0),board);
@@ -84,7 +77,6 @@ public class AI
             else
             {
                 target=thinkModule(board);
-
             }
 
         }
