@@ -1,10 +1,13 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Game from './Game';
-import grid from './ships'
+import grid from './gridCells'
+
 
 render(
-    <Game playersField={grid} />,
+    <Game
+        playersField={grid}
+    />,
     document.getElementById('root')
 );
 

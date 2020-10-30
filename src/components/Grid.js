@@ -7,7 +7,8 @@ export default class Grid extends Component {
         super(props);
 
         this.state = {
-            playersField : props.playersField
+            playersField : props.playersField,
+            handleClick: props.handleClick
         }
     }
 
@@ -18,6 +19,9 @@ export default class Grid extends Component {
                     key={index}
                     className="row"
                     rowCells={row}
+                    onClick={
+                        (x, y) => this.state.handleClick(x, y)
+                    }
                 />
             )
         )
