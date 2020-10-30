@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Column from "./Column";
+import Row from "./Row";
 import './style.css'
 
 export default class Grid extends Component {
@@ -7,15 +7,19 @@ export default class Grid extends Component {
         super(props);
 
         this.state = {
-
+            playersField : props.playersField
         }
     }
 
     render() {
         return (
-            <div className="grid">
-                <Column />
-            </div>
+            this.state.playersField.map((row, index) =>
+                <Row
+                    key={index}
+                    className="row"
+                    rowCells={row}
+                />
+            )
         )
     }
 }

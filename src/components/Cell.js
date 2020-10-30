@@ -5,37 +5,31 @@ export default class Cell extends Component {
     constructor(props) {
         super(props)
 
-        this.classes = {
-
+        this.state = {
+            x: props.x,
+            y:props.y,
             isShip: props.typeCell,
             isShot: props.shot
         }
-
-
-
-
-
-
-
-        this.marker = 'X'
-        this.marker = '·'
-
-
-
-
-
     }
 
-    sendCoords = () => {
+    sendCoords = async () => {
+        return await fetch('', {
+            method: 'POST',
+            headers: 'application/json;charset=utf-8',
+             body: JSON.stringify({
+                 x: this.state.x,
+                 y: this.state.y
+             })
+        })
 
 
-        return {x, y}
     }
 
     render() {
         return (
             <button onClick={this.sendCoords}>
-                <div className="marker cell">{this.marker}</div>
+                <div className="cell"></div>
             </button>
         )
     }
