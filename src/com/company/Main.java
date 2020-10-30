@@ -51,19 +51,52 @@ public class Main
         fillBoard(playerBoard, false);
         fillBoard(enemyBoard, true);
         AI test = new AI();
-        while (true)
+        AI test2 =new  AI();
+        while (playerBoard.playerWon==false && enemyBoard.playerWon==false)
         {
 
-//           Cell cel12= test.startThink(playerBoard);
-//           cel12.shoot();
-            Cell cel12 = test.startThink(playerBoard);
-            System.out.println( playerBoard.grid[cel12.y][cel12.x].shoot());
-            System.out.println(cel12.x+" "+ cel12.y);
-//            int number = in.nextInt();
+            if(enemyTurn==false)
+            {
+                Cell cel12 = test.startThink(playerBoard);
+                System.out.println( playerBoard.grid[cel12.y][cel12.x].shoot());
+                System.out.println(cel12.x+" "+ cel12.y);
 
-            showGrid(playerBoard);
+                showGrid(enemyBoard);
+                showGrid(playerBoard);
+
+                if(cel12.ship==null)
+                {
+                    enemyTurn=true;
+                }
+            }
+            else
+                {
+                    Cell cel12 = test2.startThink(enemyBoard);
+                    System.out.println( enemyBoard.grid[cel12.y][cel12.x].shoot());
+                    System.out.println(cel12.x+" "+ cel12.y);
+
+                    showGrid(enemyBoard);
+                    showGrid(playerBoard);
+                    if(cel12.ship==null)
+                    {
+                        enemyTurn=false;
+                    }
+                }
+
+
+
+
+
+
+
 
         }
+        if(playerBoard.playerWon)
+            System.out.println("выйграл игрок " );
+        else
+            {
+                System.out.println("выйграл ии " );
+            }
 
     }
 

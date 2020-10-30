@@ -11,6 +11,7 @@ public class Board {
     /*кораблей пока 5, у каждого свой размер, чтобы можно было быстро сделать
     цикл их создания; конечно, это тоже изменится*/
     public int ships = 10;
+    public int Aliveships = 10;
     public boolean playerWon;
     public Cell[][] grid;
 
@@ -29,7 +30,8 @@ public class Board {
         }
     }
 
-    public Cell[] getNeighbors(int x, int y){
+    public Cell[] getNeighbors(int x, int y)
+    {
         Point[] points = new Point[] {
                 new Point(x - 1, y),
                 new Point(x + 1, y),
@@ -118,6 +120,14 @@ public class Board {
             }
         }
         return true;
+    }
+
+    public   void checkWon()
+    {
+        if(this.Aliveships==0)
+        {
+            playerWon=true;
+        }
     }
 
 

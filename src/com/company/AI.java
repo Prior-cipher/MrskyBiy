@@ -21,16 +21,16 @@ public class AI
 
 */
 
-    static ArrayList<Cell> cellsWithShip = new ArrayList<Cell>();
+    ArrayList<Cell> cellsWithShip = new ArrayList<Cell>();
 
     private Random random = new Random();
-    static boolean horizon = false;
+     boolean horizon = false;
 
 
-    static boolean keepFinding = false;
+     boolean keepFinding = false;
 
 
-    static boolean startNoCheck =true;
+     boolean startNoCheck =true;
     Random rand = new Random();
 
 
@@ -94,7 +94,9 @@ public class AI
         //тут мы меняем флаг для следующих вызовов
         //если мы попали конечно
         //а они точно будут если мы попали
-       checkADd(target);
+
+        checkADd(target);
+        board.checkWon();
 
 
         return target;
@@ -114,7 +116,7 @@ public class AI
                 }
             }
 
-
+            board.Aliveships-=1;
             setToZero();
         }
 
@@ -218,12 +220,14 @@ public class AI
                 diff=0;
 
                 diff = getDiff(board, a, b, napravleniy, diff);
-                target=board.grid[cellsWithShip.get(0).x+diff*napravleniy*a][cellsWithShip.get(0).y+diff*napravleniy*b];
+
+                target=board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a];
+
+
             }
 
 
-        System.out.println(a+" "+b+" "+ diff);
-        System.out.println(target.x+" "+ target.y);
+
         return target;
     }
 
