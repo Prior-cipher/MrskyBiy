@@ -40,9 +40,12 @@ public class Board {
         {
             for (int j = -1; j < 2; j++)
             {
-                if(isPointValid(x+i,y+j))
+                if(isPointValid(x+i,y+j) && !(i==0 && j==0) )
                 {
+
+
                     neighbors.add(this.grid[x+i][y+j]);
+
                 }
             }
         }
