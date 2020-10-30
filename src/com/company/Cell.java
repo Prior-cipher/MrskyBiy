@@ -7,9 +7,10 @@ public class Cell {
     public boolean isShipVisible;
     private Board board;
 
-    public Cell(int x, int y, Board board){
-        this.x = x;
+    public Cell(int y, int x, Board board){
         this.y = y;
+        this.x = x;
+
         this.board = board;
     }
 
