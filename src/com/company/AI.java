@@ -21,7 +21,7 @@ public class AI
 
 */
 
-    ArrayList<Cell> cellsWithShip = new ArrayList<Cell>();
+    ArrayList<Cell> cellsWithShip = new ArrayList<>();
 
     private Random random = new Random();
      boolean horizon = false;
@@ -46,12 +46,7 @@ public class AI
 
               cell = board.getCell(x, y);
           }
-          while ( cell.wasShot!=false);
-
-
-
-
-
+          while (cell.wasShot);
 
         return cell;
 
@@ -61,22 +56,17 @@ public class AI
 
     public Cell startThink(Board board)
     {
-
         killConfermded(board);
-
         Cell target;
-
-        if (keepFinding==false)
+        if (!keepFinding)
         {
             target= enemyFirstShot(0,0,board);
-
         }
 
         //если мы стреляем по ранмоу в первый раз отрабатывает  данный модуль
         //иначе запускаем модули с мозгами
         else
             {
-
 
                 if (cellsWithShip.size()==1)
                 {
@@ -110,7 +100,7 @@ public class AI
         {
             for (Cell cell:cellsWithShip)
             {
-                for (Cell cell1:board.getNeighbors(cell.y,cell.x))
+                for (Cell cell1:board.getNeighbors(cell.y, cell.x))
                 {
                     cell1.shoot();
                 }
@@ -129,7 +119,7 @@ public class AI
 
         //данный модуль срабатывает до тех пор пока мы не попадем еще раз
         //выбирает случайную точку вокруг первого попадания
-        ArrayList<Cell> cellsToShoot = new ArrayList<Cell>();
+        ArrayList<Cell> cellsToShoot = new ArrayList<>();
         Cell cellToShoot;
         if(board.isPointValid(target.x + 1, target.y) && !(board.grid[target.y][target.x+1].wasShot))
         {
@@ -181,8 +171,7 @@ public class AI
         int diff=0;
         Cell target;
 
-        int sx=cellsWithShip.get(0).x;
-        int sxy=cellsWithShip.get(0).y;
+
 
 
         if (horizon)
@@ -209,7 +198,7 @@ public class AI
 //проверка нужнаяя ли нам пустая точка с потенциальым кораблем  в одном из напрмавелний
         if(board.isPointValid(cellsWithShip.get(0).x+diff*napravleniy*a,cellsWithShip.get(0).y+diff*napravleniy*b)
 
-                && board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].wasShot==false)
+                && !board.grid[cellsWithShip.get(0).y + diff * napravleniy * b][cellsWithShip.get(0).x + diff * napravleniy * a].wasShot)
         {
             target=board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a];
         }
@@ -240,16 +229,11 @@ public class AI
         // если нашел что там удже (в той стороне есть выстрел ) завершает работу
         while (board.isPointValid(cellsWithShip.get(0).x+diff*napravleniy*a,cellsWithShip.get(0).y+diff*napravleniy*b)
 
-                && board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].wasShot==true
+                && board.grid[cellsWithShip.get(0).y + diff * napravleniy * b][cellsWithShip.get(0).x + diff * napravleniy * a].wasShot
                 &&board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].ship!=null )
 
         {
-            Cell sh=board.getCell(cellsWithShip.get(0).y+diff*napravleniy*b,cellsWithShip.get(0).x+diff*napravleniy*a);
-            int ex1= board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].x;
-            int ex2=board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].y;
-            System.out.println("x- "+ex1+" y= "+ex2 );
-            System.out.println(board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].wasShot);
-            System.out.println(board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a].ship);
+
             diff+=1;
         }
         return diff;
@@ -273,7 +257,7 @@ public class AI
     public void setToZero()
 
         {
-            cellsWithShip = new ArrayList<Cell>();
+            cellsWithShip = new ArrayList<>();
 
             random = new Random();
             horizon = false;

@@ -84,12 +84,6 @@ public class Main
                 }
 
 
-
-
-
-
-
-
         }
         if(playerBoard.playerWon)
             System.out.println("выйграл игрок " );
