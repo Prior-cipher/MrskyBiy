@@ -57,7 +57,7 @@ public class Board {
                 for (int i = y; i < y + length; i++) {
                     Cell cell = getCell(x, i);
                     cell.ship = ship;
-                    if(this.enemy){
+                    if(!this.enemy){
                         cell.isShipVisible = true;
                     }
                 }
@@ -65,7 +65,7 @@ public class Board {
                 for (int i = x; i < x + length; i++) {
                     Cell cell = getCell(i, y);
                     cell.ship = ship;
-                    if(this.enemy){
+                    if(!this.enemy){
                         cell.isShipVisible = true;
                     }
                 }
