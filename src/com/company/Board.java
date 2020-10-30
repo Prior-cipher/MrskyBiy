@@ -6,7 +6,10 @@ import java.util.List;
 
 public class Board {
     private boolean enemy = false;
+    List<Cell> neighbors = new ArrayList<Cell>();
+    private Cell[] cellArray = neighbors.toArray(new Cell[0]);
     public int ships = 10;
+    public int aliveShips = 10;
     public boolean playerWon;
     public Cell[][] grid;
 
@@ -25,7 +28,8 @@ public class Board {
         }
     }
 
-    public Cell[] getNeighbors(int x, int y){
+    public Cell[] getNeighbors(int x, int y)
+    {
         Point[] points = new Point[] {
                 new Point(x - 1, y),
                 new Point(x + 1, y),
@@ -46,22 +50,21 @@ public class Board {
         return neighbors.toArray(new Cell[0]);
     }
 
-    public boolean placeShip(Ship ship, int y, int x, boolean visibility) {
+    public boolean placeShip(Ship ship, int x, int y) {
         //canPlaceShip, getCall
 
-        if (canPlaceShip(ship, y, x)) {
+        if (canPlaceShip(ship, x, y)) {
             int length = ship.type;
-            if (ship.vertical) {
+            if (!ship.vertical) {
                 for (int i = y; i < y + length; i++) {
-                    Cell cell = getCell(i, x);
+                    Cell cell = getCell(x, i);
                     cell.ship = ship;
-                    cell.isShipVisible = visibility;
+
                 }
             } else {
                 for (int i = x; i < x + length; i++) {
-                    Cell cell = getCell(y, i);
+                    Cell cell = getCell(i, y);
                     cell.ship = ship;
-                    cell.isShipVisible = visibility;
 
                 }
             }
@@ -71,25 +74,25 @@ public class Board {
     }
 
 
-    public Cell getCell(int y, int x){
-        return grid[y][x];
+    public Cell getCell(int x, int y){
+        return grid[x][y];
     }
 
 
-    private boolean canPlaceShip(Ship ship, int y, int x) {
+    private boolean canPlaceShip(Ship ship, int x, int y) {
         //getCell, getNeighbors
         int length = ship.type;
         if (!ship.vertical) {
-            for (int i = x; i < x + length; i++) {
-                if (!isPointValid(y, i))
+            for (int i = y; i < y + length; i++) {
+                if (!isPointValid(x, i))
                     return false;
 
-                Cell cell = getCell(y, i);
+                Cell cell = getCell(x, i);
                 if (cell.ship != null )
                     return false;
 
-                for (Cell neighbor : getNeighbors(y, i)) {
-                    if (!isPointValid(y, i))
+                for (Cell neighbor : getNeighbors(x, i)) {
+                    if (!isPointValid(x, i))
                         return false;
 
                     if (neighbor.ship != null)
@@ -97,15 +100,15 @@ public class Board {
                 }
             }
         } else {
-            for (int i = y; i < y + length; i++) {
-                if (!isPointValid(i, x))
+            for (int i = x; i < x + length; i++) {
+                if (!isPointValid(i, y))
                     return false;
 
-                Cell cell = getCell(i, x);
+                Cell cell = getCell(i, y);
                 if (cell.ship != null)
                     return false;
-                for (Cell neighbor : getNeighbors(i, x)) {
-                    if (!isPointValid(i, x))
+                for (Cell neighbor : getNeighbors(i, y)) {
+                    if (!isPointValid(i, y))
                         return false;
 
                     if (neighbor.ship != null)
@@ -115,6 +118,14 @@ public class Board {
             }
         }
         return true;
+    }
+
+    public   void checkWon()
+    {
+        if(this.aliveShips==0)
+        {
+            playerWon=true;
+        }
     }
 
 
