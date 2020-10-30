@@ -29,6 +29,7 @@ public class Main {
         showGrid(playerBoard);
         showGrid(enemyBoard);
     }
+
     private void playerMove(){
         while(!enemyTurn){
 
@@ -82,17 +83,13 @@ public class Main {
 
 
 
-
-
-
-
-
-
     public static void main(String[] args) {
         Main m1= new Main();
 
         m1.createContent();
     }
+
+
     public void showGrid(Board a)
     {
         System.out.println("0123456789");

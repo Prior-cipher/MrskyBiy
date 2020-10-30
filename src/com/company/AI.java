@@ -32,7 +32,6 @@ public class AI
     Random rand = new Random();
 
 
-//    тут твой код
 
     private Cell enemyFirstShot(int x, int y,Board board)
     {
@@ -55,7 +54,6 @@ public class AI
 
 
     }
-
 
     public Cell startThink(Board board)
     {
@@ -98,8 +96,6 @@ public class AI
         return target;
     }
 
-
-
     private void killConfermded(Board board)
     {
         if(cellsWithShip.size()>0 && cellsWithShip.get(0).ship.health==0)
@@ -117,8 +113,6 @@ public class AI
         }
 
     }
-
-
 
     private Cell check(Cell target,Board board)
     {
@@ -165,9 +159,6 @@ public class AI
 
 
     }
-
-
-
 
     private Cell thinkModule(Board board)
     {
