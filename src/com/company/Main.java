@@ -10,18 +10,11 @@ public class Main
     private Board enemyBoard = new Board(true);
     private Board playerBoard = new Board(false);
 
-    private int shipsToPlace = 5;
-
     private boolean enemyTurn = false;
 
     private Random random = new Random();
     AI test = new AI();
     AI test2 = new AI();
-
-
-
-    Scanner in= new Scanner(System.in);
-
 
     private void fillBoard(Board order, boolean isBegun){
         int type = 4;
@@ -93,9 +86,6 @@ public class Main
         gameProcess();
 
     }
-
-
-
 
 
 

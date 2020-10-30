@@ -6,8 +6,6 @@ import java.util.List;
 
 public class Board {
     private boolean enemy = false;
-    List<Cell> neighbors = new ArrayList<Cell>();
-    private Cell[] cellArray = neighbors.toArray(new Cell[0]);
     public int ships = 10;
     public int aliveShips = 10;
     public boolean playerWon;
