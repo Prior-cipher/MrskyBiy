@@ -31,6 +31,7 @@ public class AI
     Random rand = new Random();
 
 
+//    тут твой код
 
     private Cell enemyFirstShot(int x, int y,Board board)
     {
@@ -43,6 +44,11 @@ public class AI
             cell = board.getCell(x, y);
         }
         while ( cell.wasShot!=false);
+
+
+
+
+
 
         return cell;
 
@@ -67,6 +73,8 @@ public class AI
         //иначе запускаем модули с мозгами
         else
         {
+
+
             if (cellsWithShip.size()==1)
             {
                 target=check(cellsWithShip.get(0),board);
@@ -76,6 +84,7 @@ public class AI
             else
             {
                 target=thinkModule(board);
+
             }
 
         }
@@ -85,6 +94,7 @@ public class AI
 
         checkADd(target);
         board.checkWon();
+
 
         return target;
     }
@@ -145,8 +155,6 @@ public class AI
         return cellToShoot;
     }
 
-
-
     private void checkHorizotal()
     {
         //проверяет горизонтальность корабля
@@ -156,7 +164,9 @@ public class AI
         }
 
 
+
     }
+
 
 
 
@@ -171,6 +181,7 @@ public class AI
         int sx=cellsWithShip.get(0).x;
         int sxy=cellsWithShip.get(0).y;
 
+
         if (horizon)
         {
             a=1;
@@ -179,12 +190,16 @@ public class AI
         else
         {
             b=1;
+
+
         }
+
 
         if(napravleniy==0)
         {
             napravleniy = -1 ;
         }
+
 
         diff = getDiff(board, a, b, napravleniy, diff);
 
@@ -205,10 +220,14 @@ public class AI
 
             target=board.grid[cellsWithShip.get(0).y+diff*napravleniy*b][cellsWithShip.get(0).x+diff*napravleniy*a];
 
+
         }
+
+
 
         return target;
     }
+
 
 
 
@@ -256,10 +275,13 @@ public class AI
         random = new Random();
         horizon = false;
 
+
         keepFinding = false;
+
 
         startNoCheck =true;
         rand = new Random();
     }
+
 
 }

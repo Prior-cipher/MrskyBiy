@@ -1,6 +1,5 @@
 package com.company;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -28,24 +27,29 @@ public class Board {
 
     public Cell[] getNeighbors(int x, int y)
     {
-        Point[] points = new Point[] {
-                new Point(x - 1, y),
-                new Point(x + 1, y),
-                new Point(x, y - 1),
-                new Point(x, y + 1),
-                new Point(x + 1, y + 1),
-                new Point(x + 1, y - 1),
-                new Point(x - 1, y + 1),
-                new Point(x - 1, y - 1)
-        };
-        List<Cell> neighbors = new ArrayList<Cell>();
+        List<Cell> neighbors = new ArrayList<>();
 
-        for (Point p : points) {
-            if (isPointValid((int) p.getX(), (int)p.getY())) {
-                neighbors.add(getCell((int)p.getX(), (int)p.getY()));
+        for (int i = -1; i < 2; i++)
+        {
+            for (int j = -1; j < 2; j++)
+            {
+                if(isPointValid(x+i,y+j) && !(i==0 && j==0) )
+                {
+
+
+                    neighbors.add(this.grid[x+i][y+j]);
+
+                }
             }
         }
+
         return neighbors.toArray(new Cell[0]);
+    }
+
+    private void createShip(Ship ship, int x, int y) {
+        Cell cell = getCell(x, y);
+        cell.ship = ship;
+        cell.isShipVisible = this.enemy;
     }
 
     public boolean placeShip(Ship ship, int x, int y) {
@@ -55,19 +59,11 @@ public class Board {
             int length = ship.type;
             if (!ship.vertical) {
                 for (int i = y; i < y + length; i++) {
-                    Cell cell = getCell(x, i);
-                    cell.ship = ship;
-                    if(!this.enemy){
-                        cell.isShipVisible = true;
-                    }
+                    createShip(ship, x, i);
                 }
             } else {
                 for (int i = x; i < x + length; i++) {
-                    Cell cell = getCell(i, y);
-                    cell.ship = ship;
-                    if(!this.enemy){
-                        cell.isShipVisible = true;
-                    }
+                    createShip(ship, i, y);
                 }
             }
             return true;
@@ -76,51 +72,50 @@ public class Board {
     }
 
 
+
+
     public Cell getCell(int x, int y){
-        return grid[x][y];
+        return grid[y][x];
     }
 
 
-    private boolean canPlaceShip(Ship ship, int x, int y) {
-        //getCell, getNeighbors
+
+    private boolean canPlaceShip(Ship ship, int x, int y)
+    {
+
         int length = ship.type;
-        if (!ship.vertical) {
+        if (!ship.vertical)
+        {
             for (int i = y; i < y + length; i++) {
-                if (!isPointValid(x, i))
+                if (!isPointValid(x, i) || getCell(x,i).ship!= null)
                     return false;
 
-                Cell cell = getCell(x, i);
-                if (cell.ship != null )
-                    return false;
-
-                for (Cell neighbor : getNeighbors(x, i)) {
-                    if (!isPointValid(x, i))
+                for (Cell neighbor : getNeighbors(x, i))
+                {
+                    if (!isPointValid(x, i)||neighbor.ship != null) {
                         return false;
-
-                    if (neighbor.ship != null)
-                        return false;
+                    }
                 }
             }
-        } else {
-            for (int i = x; i < x + length; i++) {
-                if (!isPointValid(i, y))
+        }
+        else
+        {
+            for (int i = x; i < x + length; i++)
+            {
+                if (!isPointValid(i, y) || getCell(i,y).ship!=null)
                     return false;
 
-                Cell cell = getCell(i, y);
-                if (cell.ship != null)
-                    return false;
-                for (Cell neighbor : getNeighbors(i, y)) {
-                    if (!isPointValid(i, y))
-                        return false;
-
-                    if (neighbor.ship != null)
+                for (Cell neighbor : getNeighbors(i, y))
+                {
+                    if (!isPointValid(i, y) ||neighbor.ship != null)
                         return false;
                 }
-
             }
         }
         return true;
     }
+
+
 
     public   void checkWon()
     {
