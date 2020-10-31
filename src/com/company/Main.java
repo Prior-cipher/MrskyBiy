@@ -57,11 +57,6 @@ public class Main
                     playerMove(y, x);
                 }
             }
-            if (playerBoard.playerWon)
-                System.out.println("выиграл игрок ");
-            else {
-                System.out.println("выиграл ии ");
-            }
         }
     }
 
