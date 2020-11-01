@@ -5,7 +5,6 @@ export default (
                 x: X+1,
                 y: Y+1,
                 containsShip: false,
-                shot: false,
                 isShipVisible: false
             })
         })

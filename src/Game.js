@@ -1,73 +1,39 @@
 import React, {Component} from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import Grid from "./components/Grid";
-import coordsShips from "./coordsShips"
-
+import ships from "./coordsShips"
+import arr_rows from './gridCells'
 
 export default class Game extends Component {
-
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
-            playersField: props.playersField,
-            enemyShips: coordsShips.enemy,
-            playerShips: coordsShips.player,
-            isEnemyGrid: props.isEnemyGrid,
+            playerShips: ships.player,
+            enemyShips: ships.enemy,
             gameOver: false,
-            areEnemyShipsInvisible: true
+            grid: [...arr_rows]
         }
-
-
     }
 
-    handleClick = (x, y) => {
-        // return await fetch('', {
-        //     method: 'POST',
-        //     headers: 'application/json;charset=utf-8',
-        //      body: JSON.stringify({
-        //          'x': this.state.x,
-        //          'y': this.state.y
-        //      })
-        // })
-
-        console.log({
-            'x': x,
-            'y': y
-        })
-    }
-
-    drawShips = (grid, posShips) => {
-        for (let i = 0; i < posShips.length; i++) {
-            grid[posShips[i]['x'] - 1][posShips[i]['y'] - 1] = posShips[i];
-        }
+    drawShips = () => {
+        this.setState(state => state.grid[0][0].isShip = true)
     }
 
     render() {
-        return (
+        return(
             <div className="container">
-                <h1>Морской Бой</h1>
-
+                <h1>Морской бой</h1>
                 <Grid
-                    className="grid"
-                    playersField={this.state.playersField}
-                    onClick={(x, y) => this.handleClick(x, y)}
-
+                    whose="player"
+                    ships={this.state.playerShips}
+                    rows={this.state.grid}
                 />
-                <button
-                    onClick={
-                        this.drawShips(
-                            this.state.playersField,
-                            this.state.enemyShips
-                        )
-                    }
-                >
-                    Сгенерировать
-                </button>
+                <button onClick={this.drawShips}>Сгенерировать</button>
                 <Grid
-                    className="grid"
-                    playersField={this.state.playersField}
-                    onClick={(x, y) => this.handleClick(x, y)}
+                    whose="enemy"
+                    ships={this.state.enemyShips}
+                    rows={this.state.grid}
                 />
             </div>
         )

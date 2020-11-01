@@ -16,6 +16,7 @@ button {
 
 .row {
     width: 250px;
+    height: 25px;
     margin: 0;
     padding: 0;
 }

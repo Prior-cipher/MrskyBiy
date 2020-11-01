@@ -7,23 +7,48 @@ export default class Cell extends Component {
 
         this.state = {
             x: props.x,
-            y:props.y,
+            y: props.y,
             isShip: props.isShip,
-            wasShot: props.wasShot,
-            isShipVisible: props.isShipVisible,
-            handleClick: props.handleClick
+            isShipVisible: props.whose === 'player',
+            wasShot: false,
+            marker: '',
+            whose: props.whose
         }
+    }
+
+    shot = () => {
+        // return await fetch('', {
+        //     method: 'POST',
+        //     headers: 'application/json;charset=utf-8',
+        //      body: JSON.stringify({
+        //          'x': this.state.x,
+        //          'y': this.state.y
+        //      })
+        // })
+
+        this.setState(state => {
+            return {
+                wasShot: true,
+                isShipVisible: true,
+                marker: state.isShip ? 'X' : '·'
+            }
+        })
     }
 
     render() {
         return (
-            <button onClick={this.state.handleClick}>
-                <div className={
-                    `cell ${this.state.isShip && this.state.wasShot ? 'ship' : ''}`
-                }>
-                    {this.state.wasShot ? (this.state.isShip ? 'X' : '·') : ''}
-                </div>
-            </button>
+            <li>
+                <button
+                    onClick={this.shot}
+                    className={`cell ${
+                        this.state.isShipVisible &&
+                        this.state.isShip    
+                            ? 'ship' : ''
+                    }`}
+                >
+                    {this.state.marker}
+                </button>
+            </li>
         )
     }
 }

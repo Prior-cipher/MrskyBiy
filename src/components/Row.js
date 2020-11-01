@@ -4,33 +4,26 @@ import Cell from './Cell'
 
 export default class Row extends Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
-            rowCells: props.rowCells,
-            handleClick: props.handleClick
+            cells: props.cells,
+            whose: props.whose
         }
     }
-
 
     render() {
         return (
             <ul className="row">
-                {this.state.rowCells.map((cell, index) => {
-                    return (<Cell
+                {this.state.cells.map((cell, index) =>
+                    <Cell
                         x={cell.x}
                         y={cell.y}
-                        isShip={cell.containsShip}
-                        wasShot={cell.shot}
-                        isShipVisible={cell.isShipVisible}
-                        key={index}
-                        onClick={
-                            () => this.state.handleClick(
-                                cell.x, cell.y
-                            )
-                        }
-                    />)
-                })}
+                        isShip={cell.isShip}
+                        whose={this.state.whose}
+                        key={`${cell.x}${cell.y}`}
+                    />
+                )}
             </ul>
         )
     }
