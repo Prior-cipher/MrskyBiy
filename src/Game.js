@@ -17,7 +17,18 @@ export default class Game extends Component {
     }
 
     drawShips = () => {
-        this.setState(state => state.grid[0][0].isShip = true)
+        this.setState(state => {
+            let newGrid = [...state.grid]
+            const ships = [...state.playerShips]
+
+            for(let i = 0; i < ships.length; i++) {
+                newGrid[ships[i].x - 1][ships[i].y - 1] = ships[i]
+            }
+
+            return {
+                grid: [...newGrid]
+            }
+        })
     }
 
     render() {

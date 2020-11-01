@@ -15,11 +15,11 @@ export default class Row extends Component {
     render() {
         return (
             <ul className="row">
-                {this.state.cells.map((cell, index) =>
+                {this.state.cells.map(cell =>
                     <Cell
                         x={cell.x}
                         y={cell.y}
-                        isShip={cell.isShip}
+                        isShip={cell.containsShip}
                         whose={this.state.whose}
                         key={`${cell.x}${cell.y}`}
                     />
