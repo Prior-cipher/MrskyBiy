@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
 import Grid from "./components/Grid";
 import ships from "./coordsShips"
 import arr_rows from './gridCells'
